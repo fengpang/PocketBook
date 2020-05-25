@@ -6,74 +6,39 @@
  * @flow strict-local
  */
 
-import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React from 'react';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {StatusBar} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import BillList from './views/BillList';
+import Bill from './views/Bill';
 
-import PocketList from './views/list';
+const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
   return (
-    <>
-      <SafeAreaView>
+    <NavigationContainer>
+      <>
         <StatusBar barStyle="light-content" backgroundColor="purple" />
-        <PocketList />
-      </SafeAreaView>
-    </>
+        <Stack.Navigator
+          initialRouteName="BillList"
+          screenOptions={{
+            headerStyle: {backgroundColor: 'purple'},
+            headerTitleStyle: {color: '#ffff'},
+            headerTintColor: '#fff',
+          }}>
+          <Stack.Screen
+            name="BillList"
+            component={BillList}
+            options={{title: 'Home'}}
+          />
+          <Stack.Screen name="Bill" component={Bill} />
+        </Stack.Navigator>
+      </>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

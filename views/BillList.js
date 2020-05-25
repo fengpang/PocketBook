@@ -33,14 +33,15 @@ const data = [
   {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
   {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
   {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
+  {name: '卖肉', detail: '雪山神猪肉333ssss3', id: 4, cost: 568},
 ];
 
-export default function PocketList() {
+export default function PocketList({navigation}) {
   const _keyExtractor = (item) => item.id.toString();
   const renderItem = ({item}) => {
     return (
-      <TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => navigation.navigate('Bill', {id: item.id})}>
         <View style={styles.listItem}>
           <Text>{item.name}</Text>
           <Text>{item.detail}</Text>
@@ -64,8 +65,6 @@ export default function PocketList() {
 const styles = StyleSheet.create({
   listItem: {
     paddingVertical: 25,
-    paddingHorizontal: 15,
-    marginHorizontal: 15,
     borderBottomColor: 'rgba(0, 0, 0, 0.12)',
     borderBottomWidth: 1,
     flex: 1,
