@@ -1,42 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   FlatList,
   View,
   Text,
   StyleSheet,
   TouchableNativeFeedback,
+  AsyncStorage,
 } from 'react-native';
+import IncreaseButton from './IncreaseButton';
 
-const data = [
-  {name: '买肉', detail: '雪山神猪肉', id: 1, cost: 568},
-  {name: '买水', detail: '快乐肥宅水', id: 2, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉22', id: 3, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉3333', id: 4, cost: 568},
-  {name: '卖肉', detail: '雪山神猪肉333ssss3', id: 4, cost: 568},
-];
+if (!AsyncStorage.getItem('billList')) {
+  AsyncStorage.setItem('billList', JSON.stringify([]));
+}
 
 export default function PocketList({navigation}) {
+  const [data] = useState(JSON.parse(AsyncStorage.getItem('billList')));
   const _keyExtractor = (item) => item.id.toString();
   const renderItem = ({item}) => {
     return (
@@ -58,6 +36,7 @@ export default function PocketList({navigation}) {
         data={data}
         renderItem={renderItem}
       />
+      <IncreaseButton onPress={() => navigation.navigate('Bill')} />
     </>
   );
 }
